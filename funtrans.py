@@ -155,6 +155,81 @@ def atan_t(a):
 
     return sk
 
+# La funcion sinh_t aproxima el valor de sinh(a)
+# Sintaxis de la funcion: sinh_t(a,iterMax,tol)
+# Parometros de entrada:
+#         a = nomero real
+# Parometros de salida:
+#         sk = aproximacion del valor sinh_t(a)
+
+
+def sinh_t(a):
+    sk = 0
+    for n in range(iterMax):
+        sk_n = sk + ((a**(2*n+1))/np.math.factorial(2*n+1))
+        if abs(sk_n - sk) < tol:
+            er = abs(sk_n - sk)
+            sk = sk_n
+            print("El valor aproximado de sinh_t(a) es: ", sk)
+            return sk
+        sk = sk_n
+
+# La funcion cosh_t aproxima el valor de cosh_t(a)
+# Sintaxis de la funcion: cosh_t(a,iterMax,tol)
+# Parometros de entrada:
+#         a = nomero real
+# Parometros de salida:
+#         sk = aproximacion del valor cosh_t(a)
+
+
+def cosh_t(a):
+    sk = 0
+    for n in range(iterMax):
+        sk_n = sk + ((a**(2*n))/np.math.factorial(2*n))
+        if abs(sk_n - sk) < tol:
+            er = abs(sk_n - sk)
+            sk = sk_n
+            print("El valor aproximado de cosh_t(a) es: ", sk)
+            return sk
+        sk = sk_n
+
+
+# La funcion tanh_t aproxima el valor de tanh_t(a)
+# Sintaxis de la funcion: tanh_t(a,iterMax,tol)
+# Parometros de entrada:
+#         a = nomero real
+# Parometros de salida:
+#         sk = aproximacion del valor tanh_t(a)
+def tanh_t(a):
+    sk = sinh_t(a)/cosh_t(a)
+    print("El valor aproximado de tanh_t(a) es: ", sk)
+    return sk
+
+# La funcion sec_t aproxima el valor de sec_t(a)
+# Sintaxis de la funcion: sec_t(a,iterMax,tol)
+# Parometros de entrada:
+#         a = nomero real
+# Parometros de salida:
+#         sk = aproximacion del valor sec_t(a)
+
+
+def sec_t(a):
+    sk = 1/cos_t(a)
+    print("El valor aproximado de sec_t(a) es: ", sk)
+    return sk
+
+
+# La funcion csc_t aproxima el valor de csc_t(a)
+# Sintaxis de la funcion: csc_t(a,iterMax,tol)
+# Parometros de entrada:
+#         a = nomero real
+# Parometros de salida:
+#         sk = aproximacion del valor csc_t(a)
+def csc_t(a):
+    sk = 1/sen_t(a)
+    print("El valor aproximado de csc_t(a) es: ", sk)
+    return sk
+
 
 print(dominio(120))
 print(atan_t(120))
@@ -163,3 +238,5 @@ print(exp_t(125))
 print(ln_t(1000))
 print(log_t(1000, 2))
 print(power_t(125, 5))
+print(cos_t(120))
+print(sen_t(120))
