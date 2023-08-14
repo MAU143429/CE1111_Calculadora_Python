@@ -201,7 +201,7 @@ def cosh_t(a):
 # Parometros de salida:
 #         sk = aproximacion del valor tanh_t(a)
 def tanh_t(a):
-    sk = sinh_t(a)/cosh_t(a)
+    sk = sinh_t(a)*div_t(cosh_t(a))
     print("El valor aproximado de tanh_t(a) es: ", sk)
     return sk
 
@@ -214,7 +214,7 @@ def tanh_t(a):
 
 
 def sec_t(a):
-    sk = 1/cos_t(a)
+    sk = div_t(cos_t(a))
     print("El valor aproximado de sec_t(a) es: ", sk)
     return sk
 
@@ -226,15 +226,16 @@ def sec_t(a):
 # Parametros de salida:
 #         sk = aproximacion del valor csc_t(a)
 def csc_t(a):
-    sk = 1/sen_t(a)
+    sk = div_t(sen_t(a))
     print("El valor aproximado de csc_t(a) es: ", sk)
     return sk
 
-def root_t(x,y):
+
+def root_t(x, y):
     sk = x*div_t(2)
-    if y%1 == 0 and y>0:
+    if y % 1 == 0 and y > 0:
         for i in range(iterMax):
-            sk_n = sk -(sk**y - x)*(1*div_t(y*power_t(sk,y-1)))
+            sk_n = sk - (sk**y - x)*(1*div_t(y*power_t(sk, y-1)))
             if abs(sk_n - sk) < tol:
                 er = abs(sk_n - sk)
                 sk = sk_n
@@ -242,38 +243,41 @@ def root_t(x,y):
                 return sk
             sk = sk_n
 
-        #result = power_t(x,1/y)
-        #return result
-
+        # result = power_t(x,1/y)
+        # return result
 
 
 def sqrt_t(a):
 
-    return root_t(a,2)
+    return root_t(a, 2)
 
 
 def asin_t(x):
-    sk  = 0
-    if -1<= x<=1:
-        for n in range(0,iterMax):
-            sk_n = sk + (((math.factorial(2*n)))*(1*(div_t((4**n)*(math.factorial(n)**2)*((2*n)+1))))*(x**((2*n)+1)))
+    sk = 0
+    if -1 <= x <= 1:
+        for n in range(0, iterMax):
+            sk_n = sk + (((math.factorial(2*n)))*(1*(div_t((4**n)
+                         * (math.factorial(n)**2)*((2*n)+1))))*(x**((2*n)+1)))
             if abs(sk_n - sk) < tol:
                 er = abs(sk_n - sk)
                 sk = sk_n
-                #print("El valor aproximado de asin({a}) es: ", sk)
+                # print("El valor aproximado de asin({a}) es: ", sk)
                 return sk
             sk = sk_n
         return sk
 
+
 def acos_t(x):
     return (pi_t*div_t(2)) - asin_t(x)
 
-#La funcion cot_t aproxima el valor de cot_t(a)
+# La funcion cot_t aproxima el valor de cot_t(a)
 # Sintaxis de la funcion: cot_t(a,iterMax,tol)
 # Parámetros de entrada:
 #         a = nomero real
 # Parametros de salida:
 #         sk = aproximacion del valor cot_t(a)
+
+
 def cot_t(a):
     sk = 1/tanh_t(a)
     print("El valor aproximado de cot_t(a)) es: ", sk)
@@ -300,10 +304,10 @@ print("#################################################################")
 print(power_t(125, 5))
 print("#################################################################")
 
-#print(root_t(5,2))
+# print(root_t(5,2))
 print("############################################################")
 
-#(root_t(5,0.53))
+# (root_t(5,0.53))
 print("###########################################################3")
 
 print(asin_t(0.54))
