@@ -221,20 +221,92 @@ def sec_t(a):
 
 # La funcion csc_t aproxima el valor de csc_t(a)
 # Sintaxis de la funcion: csc_t(a,iterMax,tol)
-# Parometros de entrada:
+# Parámetros de entrada:
 #         a = nomero real
-# Parometros de salida:
+# Parametros de salida:
 #         sk = aproximacion del valor csc_t(a)
 def csc_t(a):
     sk = 1/sen_t(a)
     print("El valor aproximado de csc_t(a) es: ", sk)
     return sk
 
+def root_t(x,y):
+    sk = x*div_t(2)
+    if y%1 == 0 and y>0:
+        for i in range(iterMax):
+            sk_n = sk -(sk**y - x)*(1*div_t(y*power_t(sk,y-1)))
+            if abs(sk_n - sk) < tol:
+                er = abs(sk_n - sk)
+                sk = sk_n
+                print("El valor aproximado de root.t(x,y) es: ", sk)
+                return sk
+            sk = sk_n
+
+        #result = power_t(x,1/y)
+        #return result
+
+
+
+def sqrt_t(a):
+
+    return root_t(a,2)
+
+
+def asin_t(x):
+    sk  = 0
+    if -1<= x<=1:
+        for n in range(0,iterMax):
+            sk_n = sk + (((math.factorial(2*n)))*(1*(div_t((4**n)*(math.factorial(n)**2)*((2*n)+1))))*(x**((2*n)+1)))
+            if abs(sk_n - sk) < tol:
+                er = abs(sk_n - sk)
+                sk = sk_n
+                #print("El valor aproximado de asin({a}) es: ", sk)
+                return sk
+            sk = sk_n
+        return sk
+
+def acos_t(x):
+    return (pi_t*div_t(2)) - asin_t(x)
+
+#La funcion cot_t aproxima el valor de cot_t(a)
+# Sintaxis de la funcion: cot_t(a,iterMax,tol)
+# Parámetros de entrada:
+#         a = nomero real
+# Parametros de salida:
+#         sk = aproximacion del valor cot_t(a)
+def cot_t(a):
+    sk = 1/tanh_t(a)
+    print("El valor aproximado de cot_t(a)) es: ", sk)
+    return sk
+
 
 print(dominio(120))
+print("#################################################################")
 print(atan_t(120))
+print("#################################################################")
+
 print(div_t(52000))
+print("#################################################################")
+
 print(exp_t(125))
+print("#################################################################")
+
 print(ln_t(1000))
+print("#################################################################")
+
 print(log_t(1000, 2))
+print("#################################################################")
+
 print(power_t(125, 5))
+print("#################################################################")
+
+#print(root_t(5,2))
+print("############################################################")
+
+#(root_t(5,0.53))
+print("###########################################################3")
+
+print(asin_t(0.54))
+print("###############################################################")
+
+print(acos_t(0.65))
