@@ -9,7 +9,7 @@ tol = 1e-8
 
 def div_t(a):
 
-    if np.math.factorial(0) < a <= np.math.factorial(20):
+    if 0 < a <= np.math.factorial(20):
         x0 = eps_t**2
     elif np.math.factorial(20) < a <= np.math.factorial(40):
         x0 = eps_t**4
@@ -57,13 +57,14 @@ def ln_t(a):
             return sk * sk_const
         else:
             sk = sk_n
+    return sk * sk_const
 
 
 def log_t(x, a):
 
     numerator = ln_t(x)
     denominator = ln_t(a)
-    return numerator*div_t(denominator)
+    return numerator * div_t(denominator)
 
 
 def power_t(x, y):
