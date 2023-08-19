@@ -167,11 +167,11 @@ def atan_t(a):
 def sinh_t(a):
     sk = 0
     for n in range(iterMax):
-        sk_n = sk + ((a**(2*n+1))/np.math.factorial(2*n+1))
+        sk_n = sk + ((a**(2*n+1))*div_t(np.math.factorial(2*n+1)))
         if abs(sk_n - sk) < tol:
             er = abs(sk_n - sk)
             sk = sk_n
-            print("El valor aproximado de sinh_t(a) es: ", sk)
+            # print("El valor aproximado de sinh_t(a) es: ", sk)
             return sk
         sk = sk_n
 
@@ -186,11 +186,11 @@ def sinh_t(a):
 def cosh_t(a):
     sk = 0
     for n in range(iterMax):
-        sk_n = sk + ((a**(2*n))/np.math.factorial(2*n))
+        sk_n = sk + ((a**(2*n))*div_t(np.math.factorial(2*n)))
         if abs(sk_n - sk) < tol:
             er = abs(sk_n - sk)
             sk = sk_n
-            print("El valor aproximado de cosh_t(a) es: ", sk)
+            # print("El valor aproximado de cosh_t(a) es: ", sk)
             return sk
         sk = sk_n
 
@@ -203,7 +203,7 @@ def cosh_t(a):
 #         sk = aproximacion del valor tanh_t(a)
 def tanh_t(a):
     sk = sinh_t(a)*div_t(cosh_t(a))
-    print("El valor aproximado de tanh_t(a) es: ", sk)
+    # print("El valor aproximado de tanh_t(a) es: ", sk)
     return sk
 
 # La funcion sec_t aproxima el valor de sec_t(a)
@@ -216,7 +216,7 @@ def tanh_t(a):
 
 def sec_t(a):
     sk = div_t(cos_t(a))
-    print("El valor aproximado de sec_t(a) es: ", sk)
+    # print("El valor aproximado de sec_t(a) es: ", sk)
     return sk
 
 
@@ -228,7 +228,7 @@ def sec_t(a):
 #         sk = aproximacion del valor csc_t(a)
 def csc_t(a):
     sk = div_t(sen_t(a))
-    print("El valor aproximado de csc_t(a) es: ", sk)
+    # print("El valor aproximado de csc_t(a) es: ", sk)
     return sk
 
 
@@ -284,7 +284,7 @@ def cot_t(a):
     print("El valor aproximado de cot_t(a)) es: ", sk)
     return sk
 
-
+"""
 print(dominio(120))
 print("#################################################################")
 print(atan_t(120))
@@ -315,3 +315,4 @@ print(asin_t(0.54))
 print("###############################################################")
 
 print(acos_t(0.65))
+"""
