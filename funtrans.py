@@ -1,6 +1,7 @@
 import math
 import numpy as np
 
+
 pi_t = 3.14159265358979323846
 eps_t = 2.2204e-16
 iterMax = 2500
@@ -9,7 +10,7 @@ tol = 1e-8
 
 def div_t(a):
 
-    if 0 < a <= np.math.factorial(20):
+    if -1 < a <= np.math.factorial(20):
         x0 = eps_t**2
     elif np.math.factorial(20) < a <= np.math.factorial(40):
         x0 = eps_t**4
@@ -283,6 +284,10 @@ def cot_t(a):
     sk = 1/tanh_t(a)
     print("El valor aproximado de cot_t(a)) es: ", sk)
     return sk
+
+
+print(sen_t(270))
+
 
 """
 print(dominio(120))
