@@ -51,6 +51,7 @@ class CalculatorFrame(tk.Frame):
         self.exit = tk.PhotoImage(file="assets/exit.png")
         self.info = tk.PhotoImage(file="assets/info.png")
         self.title = tk.PhotoImage(file="assets/title.png")
+        self.trash = tk.PhotoImage(file="assets/trash.png")
 
         # Crear los widgets en el grid
         tk.Button(self, image=self.info, width=40, height=40, background="#1CAC91", borderwidth=0, command=self.displayInfo).grid(
@@ -59,10 +60,15 @@ class CalculatorFrame(tk.Frame):
             row=0, column=1, sticky=tk.W, pady=7)
         tk.Button(self, image=self.exit, width=100, height=20, background="#1CAC91",  borderwidth=0, command=parent.destroy).grid(
             row=0, column=2, sticky=tk.W, pady=7, padx=7)
+
         tk.Label(self, text="X =", font=("Berlin Sans FB", 10), width=13, height=1, background="#1CAC91").grid(
             row=1, column=0, sticky=tk.W, pady=7, padx=7)
         x_entry = tk.Entry(self, width=17)
         x_entry.grid(row=1, column=1, sticky=tk.W, pady=7, padx=7)
+
+        tk.Button(self, image=self.trash, width=20, height=20, background="#1CAC91",  borderwidth=0).grid(
+            row=1, column=2, sticky=tk.W, pady=7, padx=7)
+
         tk.Label(self, text="Y =", font=("Berlin Sans FB", 10), width=13, height=1, background="#1CAC91").grid(
             row=2, column=0, sticky=tk.W, pady=7, padx=7)
         y_entry = tk.Entry(self, width=17)
