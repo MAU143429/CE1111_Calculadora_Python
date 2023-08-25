@@ -128,7 +128,9 @@ def cos_t(a):
 
     return sk
 
-
+def tan_t(a):
+    sk = sen_t(a)*1*div_t(cos_t(a))
+    return sk
 def atan_t(a):
     sk = 0
     if -1 < a < 1:
@@ -249,7 +251,7 @@ def root_t(x, y):
             if abs(sk_n - sk) < tol:
                 er = abs(sk_n - sk)
                 sk = sk_n
-                print("El valor aproximado de root.t(x,y) es: ", sk)
+
                 return sk
             sk = sk_n
 
@@ -289,12 +291,14 @@ def acos_t(x):
 
 
 def cot_t(a):
-    sk = 1/tanh_t(a)
-    print("El valor aproximado de cot_t(a)) es: ", sk)
+    sk = 1*div_t(tan_t(a))
     return sk
 
 
-print(div_t(-20000000))
+
+#print(div_t(-20000000))
+
+
 
 
 """
