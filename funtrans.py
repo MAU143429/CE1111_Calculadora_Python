@@ -1,5 +1,5 @@
-import math
 import numpy as np
+import math
 
 
 pi_t = 3.14159265358979323846
@@ -9,6 +9,12 @@ tol = 1e-8
 
 
 def div_t(a):
+
+    negFlag = False
+
+    if a < 0:
+        a = abs(a)
+        negFlag = True
 
     if -1 < a <= np.math.factorial(20):
         x0 = eps_t**2
@@ -30,6 +36,8 @@ def div_t(a):
         skNew = sk*(2-a*sk)
         if (abs(skNew-sk) < (tol*abs(skNew))):
             sk = skNew
+            if negFlag:
+                skNew *= -1
             return skNew
         else:
             sk = skNew
@@ -286,7 +294,7 @@ def cot_t(a):
     return sk
 
 
-print(sen_t(270))
+print(div_t(-20000000))
 
 
 """
