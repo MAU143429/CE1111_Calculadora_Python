@@ -1,7 +1,6 @@
 import numpy as np
 import math
 
-
 pi_t = 3.14159265358979323846
 eps_t = 2.2204e-16
 iterMax = 2500

@@ -63,16 +63,16 @@ class CalculatorFrame(tk.Frame):
 
         tk.Label(self, text="X =", font=("Berlin Sans FB", 10), width=13, height=1, background="#1CAC91").grid(
             row=1, column=0, sticky=tk.W, pady=7, padx=7)
-        x_entry = tk.Entry(self, width=17)
-        x_entry.grid(row=1, column=1, sticky=tk.W, pady=7, padx=7)
+        self.x_entry = tk.Entry(self, width=17)
+        self.x_entry.grid(row=1, column=1, sticky=tk.W, pady=7, padx=7)
 
-        tk.Button(self, image=self.trash, width=20, height=20, background="#1CAC91",  borderwidth=0).grid(
+        tk.Button(self, image=self.trash, width=20, height=20, background="#1CAC91",  borderwidth=0, command=lambda: self.clearAll()).grid(
             row=1, column=2, sticky=tk.W, pady=7, padx=7)
 
         tk.Label(self, text="Y =", font=("Berlin Sans FB", 10), width=13, height=1, background="#1CAC91").grid(
             row=2, column=0, sticky=tk.W, pady=7, padx=7)
-        y_entry = tk.Entry(self, width=17)
-        y_entry.grid(row=2, column=1, sticky=tk.W, pady=7, padx=7)
+        self.y_entry = tk.Entry(self, width=17)
+        self.y_entry.grid(row=2, column=1, sticky=tk.W, pady=7, padx=7)
 
         tk.Label(self, text="Answer = ", font=("Berlin Sans FB", 10), width=13, height=1, background="#1CAC91").grid(
             row=3, column=0, sticky=tk.W, pady=20, padx=7)
@@ -122,36 +122,40 @@ class CalculatorFrame(tk.Frame):
         tk.Button(self, text="x!", width=13, height=1).grid(
             row=12, column=2, sticky=W, pady=2, padx=10)
 
-        tk.Button(self, text="7", width=13, height=2).grid(
+        tk.Button(self, text="7", width=13, height=2, command=lambda: self.insertValues(7)).grid(
             row=13, column=0, sticky=W, pady=10, padx=20)
-        tk.Button(self, text="8", width=13, height=2).grid(
+        tk.Button(self, text="8", width=13, height=2, command=lambda: self.insertValues(8)).grid(
             row=13, column=1, sticky=W, pady=10, padx=10)
-        tk.Button(self, text="9", width=13, height=2).grid(
+        tk.Button(self, text="9", width=13, height=2, command=lambda: self.insertValues(9)).grid(
             row=13, column=2, sticky=W, pady=10, padx=10)
-        tk.Button(self, text="4", width=13, height=2).grid(
+        tk.Button(self, text="4", width=13, height=2, command=lambda: self.insertValues(4)).grid(
             row=14, column=0, sticky=W, pady=10, padx=20)
-        tk.Button(self, text="5", width=13, height=2).grid(
+        tk.Button(self, text="5", width=13, height=2, command=lambda: self.insertValues(5)).grid(
             row=14, column=1, sticky=W, pady=10, padx=10)
-        tk.Button(self, text="6", width=13, height=2).grid(
+        tk.Button(self, text="6", width=13, height=2, command=lambda: self.insertValues(6)).grid(
             row=14, column=2, sticky=W, pady=10, padx=10)
-        tk.Button(self, text="1", width=13, height=2).grid(
+        tk.Button(self, text="1", width=13, height=2, command=lambda: self.insertValues(1)).grid(
             row=15, column=0, sticky=W, pady=10, padx=20)
-        tk.Button(self, text="2", width=13, height=2).grid(
+        tk.Button(self, text="2", width=13, height=2, command=lambda: self.insertValues(2)).grid(
             row=15, column=1, sticky=W, pady=10, padx=10)
-        tk.Button(self, text="3", width=13, height=2).grid(
+        tk.Button(self, text="3", width=13, height=2, command=lambda: self.insertValues(3)).grid(
             row=15, column=2, sticky=W, pady=10, padx=10)
-        tk.Button(self, text="π", width=13, height=2).grid(
+        tk.Button(self, text="π", width=13, height=2, command=lambda: self.insertValues("π")).grid(
             row=16, column=0, sticky=W, pady=10, padx=20)
-        tk.Button(self, text="0", width=13, height=2).grid(
+        tk.Button(self, text="0", width=13, height=2, command=lambda: self.insertValues(0)).grid(
             row=16, column=1, sticky=W, pady=10, padx=10)
-        tk.Button(self, text=".", width=13, height=2).grid(
+        tk.Button(self, text=".", width=13, height=2, command=lambda: self.insertValues(".")).grid(
             row=16, column=2, sticky=W, pady=10, padx=10)
 
     def displayInfo(self):
         infoScreen = tk.Toplevel(self)
         infoScreen.title("Calculadora FunTras")
         infoScreen.geometry("400x700")
-        infoScreen.iconphoto(True, icon)
+        self.instructions = tk.PhotoImage(file="assets/instructions.png")
+        self.logo = tk.PhotoImage(file="assets/logo.png")
+        self.background_label = tk.Label(infoScreen, image=self.instructions)
+        self.background_label.place(relwidth=1, relheight=1)
+        infoScreen.iconphoto(True, self.logo)
         infoScreen.config(bg="#1CAC91")
         infoScreen.resizable(False, False)
         screen_width = infoScreen.winfo_screenwidth()
@@ -159,6 +163,20 @@ class CalculatorFrame(tk.Frame):
         x = (screen_width/2) - (400/2)
         y = (screen_height/2) - (700/2)
         infoScreen.geometry('%dx%d+%d+%d' % (400, 700, x, y))
+
+    def clearAll(self):
+
+        self.x_entry.delete(0, tk.END)
+        self.y_entry.delete(0, tk.END)
+
+    def insertValues(self, value):
+
+        focused_widget = self.focus_get()
+
+        if focused_widget == self.x_entry:
+            self.x_entry.insert(tk.END, value)
+        elif focused_widget == self.y_entry:
+            self.y_entry.insert(tk.END, value)
 
 
 if __name__ == "__main__":
