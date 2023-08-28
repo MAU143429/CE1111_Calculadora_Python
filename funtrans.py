@@ -6,7 +6,13 @@ eps_t = 2.2204e-16
 iterMax = 2500
 tol = 1e-8
 
-
+# La funcion div_t aproxima el valor de div_t(a)
+# Sintaxis de la funcion: div_t(a)
+# Parámetros de entrada:
+#         a  numero real
+# Parametros de salida:
+#         0  = En caso de que no valores mayores a 200!
+#         skNew = el valor de la aproximacion de 1/a
 def div_t(a):
 
     negFlag = False
