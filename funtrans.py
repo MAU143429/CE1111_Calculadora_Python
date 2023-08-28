@@ -94,7 +94,7 @@ def dominio(a):
     return a
 
 
-def sen_t(a):
+def sin_t(a):
     sk = 0
     a = dominio(a)
 
@@ -128,7 +128,11 @@ def cos_t(a):
     return sk
 
 def tan_t(a):
-    sk = sen_t(a)*1*div_t(cos_t(a))
+    cos = cos_t(a)
+    if cos != 0:
+        sk = sin_t(a)*div_t(cos_t(a))
+    else:
+        return "error"
     return sk
 def atan_t(a):
     sk = 0
@@ -237,14 +241,16 @@ def sec_t(a):
 # Parametros de salida:
 #         sk = aproximacion del valor csc_t(a)
 def csc_t(a):
-    sk = div_t(sen_t(a))
+    sk = div_t(sin_t(a))
     # print("El valor aproximado de csc_t(a) es: ", sk)
     return sk
 
 
 def root_t(x, y):
-    sk = x*div_t(2)
+    
     if y % 1 == 0 and y > 0:
+        y = int(y)
+        sk = x*div_t(2)
         for i in range(iterMax):
             sk_n = sk - (sk**y - x)*(1*div_t(y*power_t(sk, y-1)))
             if abs(sk_n - sk) < tol:
@@ -253,9 +259,9 @@ def root_t(x, y):
 
                 return sk
             sk = sk_n
-
-        # result = power_t(x,1/y)
-        # return result
+    else:
+        result = power_t(x,div_t(y))
+        return result
 
 
 def sqrt_t(a):
