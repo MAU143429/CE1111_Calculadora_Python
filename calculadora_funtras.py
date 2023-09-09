@@ -27,7 +27,7 @@ class CalculatorApp(tk.Tk):
             frame.place(relwidth=1, relheight=1)
             frame.grid_forget()  # Ocultar todos los marcos al inicio
 
-        self.show_frame(MainFrame)
+        self.showFrame(MainFrame)
         
         
     '''
