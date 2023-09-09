@@ -107,13 +107,26 @@ def log_t(x, a):
 #         sk = la aproximacion de x**y 
 def power_t(x, y):
     
-    sk = 1
-    for n in range(y):
-        sk *= x
+
+    if (x==0 or x==1):
+        return x
+    elif(y==0):
+        return 1
+    if(y % 1 == 0 and y > 0):
+        sk = 1
+        for n in range(int(y)):
+            sk *= x
+    else:
+        sk = exp_t(y*ln_t(abs(x)))
     return sk
 
 
-
+# La funcion dominio se encarga de ajustar el dominio de 0 a 2pi 
+# Sintaxis de la funcion: dominio(a)
+# Parámetros de entrada:
+#         a valor de entrada inicial
+# Parametros de salida:
+#         a valor modificado para estar en el rango
 def dominio(a):
     
     sk = 0
@@ -126,7 +139,12 @@ def dominio(a):
             return a
     return a
 
-
+# La funcion sin_t aproxima el valor de sen(a)
+# Sintaxis de la funcion: sin_t(a)
+# Parámetros de entrada:
+#         a  numero real
+# Parametros de salida:
+#         sk = el valor de la aproximacion de sin(a)
 def sin_t(a):
     
     sk = 0
@@ -144,7 +162,12 @@ def sin_t(a):
 
     return sk
 
-
+# La funcion cos_t aproxima el valor de cos(a)
+# Sintaxis de la funcion: cos_t(a)
+# Parámetros de entrada:
+#         a  numero real
+# Parametros de salida:
+#         sk = el valor de la aproximacion de cos(a)
 def cos_t(a):
     
     sk = 0
@@ -162,6 +185,12 @@ def cos_t(a):
 
     return sk
 
+# La funcion tan_t aproxima el valor de tan(a)
+# Sintaxis de la funcion: tan_t(a)
+# Parámetros de entrada:
+#         a  numero real
+# Parametros de salida:
+#         sk = el valor de la aproximacion de tan(a)
 def tan_t(a):
     
     cos = cos_t(a)
@@ -171,7 +200,12 @@ def tan_t(a):
         return "error"
     return sk
 
-
+# La funcion atan_t aproxima el valor de arctan(a)
+# Sintaxis de la funcion: atan_t(a)
+# Parámetros de entrada:
+#         a  numero real
+# Parametros de salida:
+#         sk = el valor de la aproximacion de arctan(a)
 def atan_t(a):
     
     sk = 0
@@ -210,7 +244,7 @@ def atan_t(a):
     return sk
 
 # La funcion sinh_t aproxima el valor de sinh(a)
-# Sintaxis de la funcion: sinh_t(a,iterMax,tol)
+# Sintaxis de la funcion: sinh_t(a)
 # Parometros de entrada:
 #         a = nomero real
 # Parometros de salida:
@@ -229,7 +263,7 @@ def sinh_t(a):
         sk = sk_n
 
 # La funcion cosh_t aproxima el valor de cosh_t(a)
-# Sintaxis de la funcion: cosh_t(a,iterMax,tol)
+# Sintaxis de la funcion: cosh_t(a)
 # Parometros de entrada:
 #         a = nomero real
 # Parometros de salida:
@@ -250,7 +284,7 @@ def cosh_t(a):
 
 
 # La funcion tanh_t aproxima el valor de tanh_t(a)
-# Sintaxis de la funcion: tanh_t(a,iterMax,tol)
+# Sintaxis de la funcion: tanh_t(a)
 # Parometros de entrada:
 #         a = nomero real
 # Parometros de salida:
@@ -285,7 +319,13 @@ def csc_t(a):
     sk = div_t(sin_t(a))
     return sk
 
-
+# La funcion root_t aproxima el valor de root(a,n)
+# Sintaxis de la funcion: root_t(x,y)
+# Parámetros de entrada:
+#         x numero real positivo 
+#         y raiz nesima que se desea usar
+# Parametros de salida:
+#         sk = el valor de la aproximacion de root(a)
 def root_t(x, y):
     
     if y % 1 == 0 and y > 0:
@@ -303,12 +343,22 @@ def root_t(x, y):
         result = power_t(x,div_t(y))
         return result
 
-
+# La funcion sqrt_t aproxima el valor de raizcuadrada(a)
+# Sintaxis de la funcion: sqrt_t(a)
+# Parámetros de entrada:
+#         a numero real positivo
+# Parametros de salida:
+#         sk = el valor de la aproximacion de sqrt_t(a)
 def sqrt_t(a):
 
     return root_t(a, 2)
 
-
+# La funcion asin_t aproxima el valor de arcsen(a)
+# Sintaxis de la funcion: asin_t(a)
+# Parometros de entrada:
+#         a = nomero real
+# Parometros de salida:
+#         sk = aproximacion del valor arcsen(a)
 def asin_t(x):
     
     sk = 0
@@ -323,7 +373,12 @@ def asin_t(x):
             sk = sk_n
         return sk
 
-
+# La funcion asin_t aproxima el valor de arccos(a)
+# Sintaxis de la funcion: acos_t(a)
+# Parometros de entrada:
+#         a = nomero real
+# Parometros de salida:
+#         sk = aproximacion del valor arccos(a)
 def acos_t(x):
     
     return (pi_t*div_t(2)) - asin_t(x)
