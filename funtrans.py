@@ -16,37 +16,40 @@ tol = 1e-8
 #         skNew = el valor de la aproximacion de 1/a
 def div_t(a):
 
-    negFlag = False
+    if(a!=0):
+        negFlag = False
 
-    if a < 0:
-        a = abs(a)
-        negFlag = True
+        if a < 0:
+            a = abs(a)
+            negFlag = True
 
-    if -1 < a <= np.math.factorial(20):
-        x0 = eps_t**2
-    elif np.math.factorial(20) < a <= np.math.factorial(40):
-        x0 = eps_t**4
-    elif np.math.factorial(40) < a <= np.math.factorial(60):
-        x0 = eps_t**8
-    elif np.math.factorial(60) < a <= np.math.factorial(80):
-        x0 = eps_t**11
-    elif np.math.factorial(80) < a < np.math.factorial(100):
-        x0 = eps_t**15
-    else:
-        return 0
-
-    skNew = x0*(2-a*x0)
-    sk = x0
-
-    for n in range(iterMax):
-        skNew = sk*(2-a*sk)
-        if (abs(skNew-sk) < (tol*abs(skNew))):
-            sk = skNew
-            if negFlag:
-                skNew *= -1
-            return skNew
+        if -1 < a <= np.math.factorial(20):
+            x0 = eps_t**2
+        elif np.math.factorial(20) < a <= np.math.factorial(40):
+            x0 = eps_t**4
+        elif np.math.factorial(40) < a <= np.math.factorial(60):
+            x0 = eps_t**8
+        elif np.math.factorial(60) < a <= np.math.factorial(80):
+            x0 = eps_t**11
+        elif np.math.factorial(80) < a < np.math.factorial(100):
+            x0 = eps_t**15
         else:
-            sk = skNew
+            return 0
+
+        skNew = x0*(2-a*x0)
+        sk = x0
+
+        for n in range(iterMax):
+            skNew = sk*(2-a*sk)
+            if (abs(skNew-sk) < (tol*abs(skNew))):
+                sk = skNew
+                if negFlag:
+                    skNew *= -1
+                return skNew
+            else:
+                sk = skNew
+    else:
+        return "x debe ser diff 0"
             
 
 # La funcion exp_t aproxima el valor de e^a
@@ -73,17 +76,22 @@ def exp_t(a):
 # Parametros de salida:
 #         sk = el valor de la aproximacion de ln(a)
 def ln_t(a):
-
-    sk_const = (2*(a-1)*div_t((a+1)))
-    sk = 0
-    for n in range(iterMax):
-        sk_n = sk + ((1*div_t((2*n+1))) * (((a-1)*div_t((a+1))) ** (2*n)))
-        if abs((sk_n * sk_const) - (sk * sk_const)) < tol:
-            sk = sk_n
-            return sk * sk_const
+    if (a!=0 and a>-1):
+        sk_const = (2*(a-1)*div_t((a+1)))
+        sk = 0
+        for n in range(iterMax):
+            sk_n = sk + ((1*div_t((2*n+1))) * (((a-1)*div_t((a+1))) ** (2*n)))
+            if abs((sk_n * sk_const) - (sk * sk_const)) < tol:
+                sk = sk_n
+                return sk * sk_const
+            else:
+                sk = sk_n
+        return sk * sk_const
+    else:
+        if (a==0):
+            return "x debe ser diff de 0"
         else:
-            sk = sk_n
-    return sk * sk_const
+            return "x debe ser > -1"
 
 # La funcion log_t aproxima el valor de log_x(a)
 # Sintaxis de la funcion: log_t(a)
@@ -93,10 +101,16 @@ def ln_t(a):
 # Parametros de salida:
 #         ln_t(x)/ln_t(a) = el resultado equivalente a log_x(a)
 def log_t(x, a):
-
-    numerator = ln_t(x)
-    denominator = ln_t(a)
-    return numerator * div_t(denominator)
+    if (x==1):
+        return 0
+    elif(a==0):
+        return "a debe ser diff 0"
+    elif(a==1):
+        return "a debe ser diff 1"
+    else:
+        numerator = ln_t(x)
+        denominator = ln_t(a)
+        return numerator * div_t(denominator)
 
 # La funcion power_t aproxima el valor de x**y
 # Sintaxis de la funcion: power_t(a)
@@ -107,8 +121,9 @@ def log_t(x, a):
 #         sk = la aproximacion de x**y 
 def power_t(x, y):
     
-
-    if (x==0 or x==1):
+    if(x==0 and y ==0):
+        return "indeterminado"
+    elif (x==0 or x==1):
         return x
     elif(y==0):
         return 1
@@ -139,6 +154,14 @@ def dominio(a):
             return a
     return a
 
+def pimids_t(a):
+    pidos = pi_t*0.5
+    if(abs(abs(a)-pidos)<tol):
+        return True
+    else:
+        return False
+
+
 # La funcion sin_t aproxima el valor de sen(a)
 # Sintaxis de la funcion: sin_t(a)
 # Parámetros de entrada:
@@ -149,18 +172,20 @@ def sin_t(a):
     
     sk = 0
     a = dominio(a)
-
-    for n in range(0, iterMax):
-        sig = (-1)**n
-        den = a**((2*n)+1)
-        fact = math.factorial((2*n)+1)
-        skn = sk + sig * (den * div_t(fact))
-        if abs(skn-sk) < tol:
+    if(abs(abs(a)-pi_t)<tol):
+        return 0
+    else:
+        for n in range(0, iterMax):
+            sig = (-1)**n
+            den = a**((2*n)+1)
+            fact = math.factorial((2*n)+1)
+            skn = sk + sig * (den * div_t(fact))
+            if abs(skn-sk) < tol:
+                sk = skn
+                break
             sk = skn
-            break
-        sk = skn
 
-    return sk
+        return sk
 
 # La funcion cos_t aproxima el valor de cos(a)
 # Sintaxis de la funcion: cos_t(a)
@@ -172,18 +197,20 @@ def cos_t(a):
     
     sk = 0
     a = dominio(a)
-
-    for n in range(0, iterMax):
-        sig = (-1)**n
-        den = a**(2*n)
-        fact = math.factorial(2*n)
-        skn = sk + sig * (den * div_t(fact))
-        if abs(skn-sk) < tol:
+    if(pimids_t(a)):
+        return 0
+    else:
+        for n in range(0, iterMax):
+            sig = (-1)**n
+            den = a**(2*n)
+            fact = math.factorial(2*n)
+            skn = sk + sig * (den * div_t(fact))
+            if abs(skn-sk) < tol:
+                sk = skn
+                break
             sk = skn
-            break
-        sk = skn
-
-    return sk
+        print(n)
+        return sk
 
 # La funcion tan_t aproxima el valor de tan(a)
 # Sintaxis de la funcion: tan_t(a)
@@ -197,7 +224,7 @@ def tan_t(a):
     if cos != 0:
         sk = sin_t(a)*div_t(cos_t(a))
     else:
-        return "error"
+        return "Fuera del dominio"
     return sk
 
 # La funcion atan_t aproxima el valor de arctan(a)
@@ -240,7 +267,6 @@ def atan_t(a):
                 break
             sk = skn
         sk = -(pi_t * div_t(2)) - sk
-
     return sk
 
 # La funcion sinh_t aproxima el valor de sinh(a)
@@ -290,10 +316,12 @@ def cosh_t(a):
 # Parometros de salida:
 #         sk = aproximacion del valor tanh_t(a)
 def tanh_t(a):
-    
+
+
     sk = sinh_t(a)*div_t(cosh_t(a))
     # print("El valor aproximado de tanh_t(a) es: ", sk)
     return sk
+
 
 # La funcion sec_t aproxima el valor de sec_t(a)
 # Sintaxis de la funcion: sec_t(a,iterMax,tol)
@@ -303,9 +331,12 @@ def tanh_t(a):
 #         sk = aproximacion del valor sec_t(a)
 def sec_t(a):
     
-    sk = div_t(cos_t(a))
-    # print("El valor aproximado de sec_t(a) es: ", sk)
-    return sk
+    coseno = cos_t(a)
+    if(coseno != 0):
+        sk = div_t(coseno)
+        # print("El valor aproximado de sec_t(a) es: ", sk)
+        return sk
+    else: return "fuera del dominio"
 
 
 # La funcion csc_t aproxima el valor de csc_t(a)
@@ -315,9 +346,12 @@ def sec_t(a):
 # Parametros de salida:
 #         sk = aproximacion del valor csc_t(a)
 def csc_t(a):
-    
-    sk = div_t(sin_t(a))
-    return sk
+    seno = sin_t(a)
+    if(seno!=0):
+
+        sk = div_t(seno)
+        return sk
+    else: return "fuera del dominio"
 
 # La funcion root_t aproxima el valor de root(a,n)
 # Sintaxis de la funcion: root_t(x,y)
@@ -327,7 +361,9 @@ def csc_t(a):
 # Parametros de salida:
 #         sk = el valor de la aproximacion de root(a)
 def root_t(x, y):
-    
+    if(y%2==0):
+        if(x<0):
+            return "x debe ser >= 0"
     if y % 1 == 0 and y > 0:
         y = int(y)
         sk = x*div_t(2)
@@ -372,6 +408,8 @@ def asin_t(x):
                 return sk
             sk = sk_n
         return sk
+    else:
+        return "fuera del dominio"
 
 # La funcion asin_t aproxima el valor de arccos(a)
 # Sintaxis de la funcion: acos_t(a)
@@ -380,8 +418,11 @@ def asin_t(x):
 # Parometros de salida:
 #         sk = aproximacion del valor arccos(a)
 def acos_t(x):
-    
-    return (pi_t*div_t(2)) - asin_t(x)
+    if -1 <= x <= 1:
+
+        return (pi_t*div_t(2)) - asin_t(x)
+    else:
+        return "fuera del dominio"
 
 # La funcion cos_t aproxima el valor de cos_t(a)
 # Sintaxis de la funcion: cos_t(a,iterMax,tol)
@@ -390,6 +431,8 @@ def acos_t(x):
 # Parametros de salida:
 #         sk = aproximacion del valor cot_t(a)
 def cot_t(a):
-    
-    sk = 1*div_t(tan_t(a))
-    return sk
+    tangente = tan_t(a)
+    if tangente != 0:
+        sk = 1*div_t(tangente)
+        return sk
+    else: return "fuera del dominio"
