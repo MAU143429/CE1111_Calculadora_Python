@@ -2,8 +2,14 @@ import tkinter as tk
 import funtrans as ftrs
 from tkinter import *
 
-
+'''
+Esta clase contiene la aplicación Funtras Calculator
+'''
 class CalculatorApp(tk.Tk):
+    
+    '''
+    Método iniciador de la clase, permite crear las ventana inicial y sus recursos.
+    '''
     def __init__(self):
         super().__init__()
         self.title("Calculadora FunTras")
@@ -22,8 +28,12 @@ class CalculatorApp(tk.Tk):
             frame.grid_forget()  # Ocultar todos los marcos al inicio
 
         self.show_frame(MainFrame)
-
-    def show_frame(self, cont):
+        
+        
+    '''
+    Método sho
+    '''
+    def showFrame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
 
@@ -42,7 +52,7 @@ class MainFrame(tk.Frame):
             "Berlin Sans FB", 30), bg="#1CAC91").pack()
 
         tk.Button(self, image=self.strimg, width=220, height=60, background="#1CAC91", borderwidth=0,
-                  command=lambda: parent.show_frame(CalculatorFrame)).pack(pady=50)
+                  command=lambda: parent.showFrame(CalculatorFrame)).pack(pady=50)
 
 
 class CalculatorFrame(tk.Frame):
@@ -59,6 +69,7 @@ class CalculatorFrame(tk.Frame):
         self.info = tk.PhotoImage(file="assets/info.png")
         self.title = tk.PhotoImage(file="assets/title.png")
         self.trash = tk.PhotoImage(file="assets/trash.png")
+        self.help = tk.PhotoImage(file="assets/help.png")
 
         # Crear los widgets en el grid
         tk.Button(self, image=self.info, width=40, height=40, background="#1CAC91", borderwidth=0, command=self.displayInfo).grid(
@@ -127,7 +138,7 @@ class CalculatorFrame(tk.Frame):
             row=12, column=0, sticky=W, pady=2, padx=20)
         tk.Button(self, text="x^y",command=lambda: self.resultvar.set(ftrs.power_t(float(self.x_entry.get()),float(self.y_entry.get()))), width=13, height=1).grid(
             row=12, column=1, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="x!",command=lambda: self.resultvar.set((float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, image=self.help, width=97, height=24, background="#1CAC91", borderwidth=0,command=self.displayHelp).grid(
             row=12, column=2, sticky=W, pady=2, padx=10)
 
         tk.Button(self, text="7", width=13, height=2, command=lambda: self.insertValues(7)).grid(
@@ -171,6 +182,62 @@ class CalculatorFrame(tk.Frame):
         x = (screen_width/2) - (400/2)
         y = (screen_height/2) - (700/2)
         infoScreen.geometry('%dx%d+%d+%d' % (400, 700, x, y))
+        
+    
+
+    def displayHelp(self):
+        
+        def on_mousewheel(event):
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+        
+        helpScreen = tk.Toplevel(self)
+        helpScreen.title("Calculadora FunTras")
+        helpScreen.geometry("410x700")
+        
+       
+        canvas = tk.Canvas(helpScreen)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
+        scrollbar = tk.Scrollbar(helpScreen, orient=tk.VERTICAL, command=canvas.yview)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        canvas.configure(yscrollcommand=scrollbar.set)
+        
+        frame_scrollable = tk.Frame(canvas)
+        canvas.create_window((0, 0), window=frame_scrollable, anchor='nw')
+        
+        self.help1 = tk.PhotoImage(file="assets/help1.png")
+        self.help2 = tk.PhotoImage(file="assets/help2.png")
+        self.help3 = tk.PhotoImage(file="assets/help3.png")
+        self.help4 = tk.PhotoImage(file="assets/help4.png")
+        self.help5 = tk.PhotoImage(file="assets/help5.png")
+
+        labelHelp1 = tk.Label(frame_scrollable, image=self.help1)
+        labelHelp2 = tk.Label(frame_scrollable, image=self.help2)
+        labelHelp3 = tk.Label(frame_scrollable, image=self.help3)
+        labelHelp4 = tk.Label(frame_scrollable, image=self.help4)
+        labelHelp5 = tk.Label(frame_scrollable, image=self.help5)
+        labelHelp1.pack(anchor='w')
+        labelHelp2.pack(anchor='w')
+        labelHelp3.pack(anchor='w')
+        labelHelp4.pack(anchor='w')
+        labelHelp5.pack(anchor='w')
+  
+        # Configurar el scroll para permitir desplazamiento
+        canvas.update_idletasks()
+        canvas.config(scrollregion=canvas.bbox("all"))
+        
+        canvas.bind_all("<MouseWheel>", on_mousewheel)
+        
+        self.logo = tk.PhotoImage(file="assets/logo.png")
+        helpScreen.iconphoto(True, self.logo)
+        canvas.config(bg="#1CAC91")
+        helpScreen.resizable(False, False)
+        screen_width = helpScreen.winfo_screenwidth()
+        screen_height = helpScreen.winfo_screenheight()
+        x = (screen_width/2) - (410/2)
+        y = (screen_height/2) - (700/2)
+        helpScreen.geometry('%dx%d+%d+%d' % (410, 700, x, y))
 
     def clearAll(self):
 
