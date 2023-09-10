@@ -1,5 +1,22 @@
 
 function [x_k, error, k, toc] = neta_scott_method (f1, x0, tol, iterMax)
+  %
+  % Aproximacion del cero de la funcion func utilizando el metodo de neta_scott
+  %
+  % Estructura: [x_k, error, k, toc] = neta_scott_method (f1, x0, tol, iterMax)
+  %
+  % Parametros: f1 = funcion a la que se le aproxima el cero
+  %             x0 = valor inicial
+  %             tol = tolerancia de aproximacion
+  %             iterMax = iteraciones maximas a realizar
+  %             x_k = aproximacion del cero
+  %             error = error del metodo dado por |f1(xk)|
+  %             k = iteraciones realizadas
+  %             toc = tiempo de ejecucion
+  %1
+  % Ejemplo para el problema planteado:
+  % [x_k, error, k, toc] = neta_scott_method ('x/(1+((x/10)-1)*exp(-2e-6*x*60))-15000', 60000, 1e-8, 1000)
+
 
   pkg load symbolic
 
