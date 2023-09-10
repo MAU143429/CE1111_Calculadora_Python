@@ -1,6 +1,17 @@
 import tkinter as tk
 import funtrans as ftrs
 from tkinter import *
+import sys
+import os
+
+'''
+Este método permite crear una ruta predeterminada para el acceso de los 
+recursos gráficos de la aplicación
+'''
+def getAssetsPath(filename):
+    # Obtener la ruta del ejecutable
+    exe_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
+    return os.path.join(exe_dir, 'assets', filename)
 
 '''
 Esta clase contiene la aplicación Funtras Calculator
@@ -14,11 +25,12 @@ class CalculatorApp(tk.Tk):
         super().__init__()
         self.title("Calculadora FunTras")
         self.geometry("400x700")
-        self.iconphoto(True, tk.PhotoImage(file="assets/logo.png"))
+        self.iconphoto(True, tk.PhotoImage(file=getAssetsPath("logo.png")))
         self.config(bg="#1CAC91")
         self.resizable(False, False)
 
         self.frames = {}  # Diccionario para almacenar los marcos
+        
 
         for F in (MainFrame, CalculatorFrame):
             frame = F(self)
@@ -27,23 +39,29 @@ class CalculatorApp(tk.Tk):
             frame.place(relwidth=1, relheight=1)
             frame.grid_forget()  # Ocultar todos los marcos al inicio
 
-        self.showFrame(MainFrame)
+        self.show_frame(MainFrame)
         
         
     '''
-    Método sho
+    Método show_frame que permite llamar alternar frames de la ventana principal
     '''
-    def showFrame(self, cont):
+    def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
 
-
+'''
+Esta clase contiene el frame principal de la aplicación Funtras Calculator
+'''
 class MainFrame(tk.Frame):
+    
+    '''
+    Método iniciador de la clase MainFrame.
+    '''
     def __init__(self, parent):
         super().__init__(parent, bg="#1CAC91")
 
-        self.strimg = tk.PhotoImage(file="assets/strbtn.png")
-        self.logo = tk.PhotoImage(file="assets/logo.png")
+        self.strimg = tk.PhotoImage(file=getAssetsPath("strbtn.png"))
+        self.logo = tk.PhotoImage(file=getAssetsPath("logo.png"))
         tk.Label(self, image=self.logo, background="#1CAC91").pack()
 
         tk.Label(self, text="Welcome to", font=(
@@ -52,11 +70,18 @@ class MainFrame(tk.Frame):
             "Berlin Sans FB", 30), bg="#1CAC91").pack()
 
         tk.Button(self, image=self.strimg, width=220, height=60, background="#1CAC91", borderwidth=0,
-                  command=lambda: parent.showFrame(CalculatorFrame)).pack(pady=50)
+                  command=lambda: parent.show_frame(CalculatorFrame)).pack(pady=50)
 
-
+'''
+Esta clase contiene el frame de la calculadora, este frame es desplegado despues del MainFrame(Pantalla de inicio)
+en el se encuentran todas las funciones de la calculadora así como la botonera
+'''
 class CalculatorFrame(tk.Frame):
+    '''
+    Método iniciador del frame de la calculadora.
+    '''
     def __init__(self, parent):
+    
         super().__init__(parent, bg="#1CAC91")
 
         self.x_var = tk.StringVar()
@@ -64,14 +89,14 @@ class CalculatorFrame(tk.Frame):
         self.resultvar = tk.StringVar()
         self.resultvar.set("Answer Here!")
         
+        # Cargando recursos gráficos para la calculadora.
+        self.exit = tk.PhotoImage(file=getAssetsPath("exit.png"))
+        self.info = tk.PhotoImage(file=getAssetsPath("info.png"))
+        self.title = tk.PhotoImage(file=getAssetsPath("title.png"))
+        self.trash = tk.PhotoImage(file=getAssetsPath("trash.png"))
+        self.help = tk.PhotoImage(file=getAssetsPath("help.png"))
 
-        self.exit = tk.PhotoImage(file="assets/exit.png")
-        self.info = tk.PhotoImage(file="assets/info.png")
-        self.title = tk.PhotoImage(file="assets/title.png")
-        self.trash = tk.PhotoImage(file="assets/trash.png")
-        self.help = tk.PhotoImage(file="assets/help.png")
-
-        # Crear los widgets en el grid
+        # Sección de la botonera
         tk.Button(self, image=self.info, width=40, height=40, background="#1CAC91", borderwidth=0, command=self.displayInfo).grid(
             row=0, column=0, sticky=tk.W, pady=30, padx=20)
         tk.Label(self, image=self.title, height=40, width=100, font=("Berlin Sans FB", 15)).grid(
@@ -166,12 +191,18 @@ class CalculatorFrame(tk.Frame):
         tk.Button(self, text=".", width=13, height=2, command=lambda: self.insertValues(".")).grid(
             row=16, column=2, sticky=W, pady=10, padx=10)
 
+    '''
+    Método displayInfo
+    
+    Realiza el display de una ventana emergente encargada de mostrar la información 
+    sobre el uso de la calculadora así como otros aspectos relevantes de los autores.
+    '''
     def displayInfo(self):
         infoScreen = tk.Toplevel(self)
         infoScreen.title("Calculadora FunTras")
         infoScreen.geometry("400x700")
-        self.instructions = tk.PhotoImage(file="assets/instructions.png")
-        self.logo = tk.PhotoImage(file="assets/logo.png")
+        self.instructions = tk.PhotoImage(file=getAssetsPath("instructions.png"))
+        self.logo = tk.PhotoImage(file=getAssetsPath("logo.png"))
         self.background_label = tk.Label(infoScreen, image=self.instructions)
         self.background_label.place(relwidth=1, relheight=1)
         infoScreen.iconphoto(True, self.logo)
@@ -184,7 +215,12 @@ class CalculatorFrame(tk.Frame):
         infoScreen.geometry('%dx%d+%d+%d' % (400, 700, x, y))
         
     
-
+    '''
+    Método displayHelp
+    
+    Realiza el display de una ventana emergente encargada de mostrar la información 
+    sobre la descripcion de todas las funciones que la calculadora puede emplear
+    '''
     def displayHelp(self):
         
         def on_mousewheel(event):
@@ -206,11 +242,11 @@ class CalculatorFrame(tk.Frame):
         frame_scrollable = tk.Frame(canvas)
         canvas.create_window((0, 0), window=frame_scrollable, anchor='nw')
         
-        self.help1 = tk.PhotoImage(file="assets/help1.png")
-        self.help2 = tk.PhotoImage(file="assets/help2.png")
-        self.help3 = tk.PhotoImage(file="assets/help3.png")
-        self.help4 = tk.PhotoImage(file="assets/help4.png")
-        self.help5 = tk.PhotoImage(file="assets/help5.png")
+        self.help1 = tk.PhotoImage(file=getAssetsPath("help1.png"))
+        self.help2 = tk.PhotoImage(file=getAssetsPath("help2.png"))
+        self.help3 = tk.PhotoImage(file=getAssetsPath("help3.png"))
+        self.help4 = tk.PhotoImage(file=getAssetsPath("help4.png"))
+        self.help5 = tk.PhotoImage(file=getAssetsPath("help5.png"))
 
         labelHelp1 = tk.Label(frame_scrollable, image=self.help1)
         labelHelp2 = tk.Label(frame_scrollable, image=self.help2)
@@ -229,7 +265,7 @@ class CalculatorFrame(tk.Frame):
         
         canvas.bind_all("<MouseWheel>", on_mousewheel)
         
-        self.logo = tk.PhotoImage(file="assets/logo.png")
+        self.logo = tk.PhotoImage(file=getAssetsPath("logo.png"))
         helpScreen.iconphoto(True, self.logo)
         canvas.config(bg="#1CAC91")
         helpScreen.resizable(False, False)
@@ -239,14 +275,31 @@ class CalculatorFrame(tk.Frame):
         y = (screen_height/2) - (700/2)
         helpScreen.geometry('%dx%d+%d+%d' % (410, 700, x, y))
 
+    '''
+    Método clearAll
+    
+    Permite borrar todos los datos ingresados en los inputs de la calucladora
+    '''
     def clearAll(self):
 
         self.x_entry.delete(0, tk.END)
         self.y_entry.delete(0, tk.END)
 
+    '''
+    Método clc
+    
+  
+    '''
     def clc(self):
         self.resultvar.set("mlp")
 
+    '''
+    Método insertValues
+    
+    Este método detecta el entry en el cual esta el focus para así ingresar los valores ingresados utilizando
+     el teclado númerico facilitado por la app, esto nos permite conocer el entry al que se le desea ingresar
+     el valor y posteriormente lo ingresa.
+    '''
     def insertValues(self, value):
 
         focused_widget = self.focus_get()
