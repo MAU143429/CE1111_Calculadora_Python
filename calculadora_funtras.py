@@ -6,7 +6,7 @@ import os
 
 '''
 Este método permite crear una ruta predeterminada para el acceso de los 
-recursos gráficos de la aplicación
+recursos gráficos de la aplicación.
 '''
 def getAssetsPath(filename):
     # Obtener la ruta del ejecutable
@@ -184,7 +184,7 @@ class CalculatorFrame(tk.Frame):
             row=15, column=1, sticky=W, pady=10, padx=10)
         tk.Button(self, text="3", width=13, height=2, command=lambda: self.insertValues(3)).grid(
             row=15, column=2, sticky=W, pady=10, padx=10)
-        tk.Button(self, text="π", width=13, height=2, command=lambda: self.insertValues("π")).grid(
+        tk.Button(self, text="π", width=13, height=2, command=lambda: self.insertValues(ftrs.pi_t)).grid(
             row=16, column=0, sticky=W, pady=10, padx=20)
         tk.Button(self, text="0", width=13, height=2, command=lambda: self.insertValues(0)).grid(
             row=16, column=1, sticky=W, pady=10, padx=10)
