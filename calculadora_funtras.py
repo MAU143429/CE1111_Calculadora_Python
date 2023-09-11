@@ -123,45 +123,45 @@ class CalculatorFrame(tk.Frame):
             row=3, column=1, sticky=tk.W, pady=7, padx=7)
         
 
-        tk.Button(self, text="senh(x)",command=lambda: self.resultvar.set(ftrs.sinh_t(float(self.x_var.get()))), width=13, height=1).grid(
+        tk.Button(self, text="senh(x)",command=lambda: self.resultvar.set(ftrs.sinh_t(float(eval(self.x_var.get())))), width=13, height=1).grid(
             row=6, column=0, sticky=W, pady=2, padx=20)
-        tk.Button(self, text="cosh(x)",command=lambda: self.resultvar.set(ftrs.cosh_t(float(self.x_var.get()))), width=13, height=1).grid(
+        tk.Button(self, text="cosh(x)",command=lambda: self.resultvar.set(ftrs.cosh_t(float(eval(self.x_var.get())))), width=13, height=1).grid(
             row=6, column=1, sticky=W, pady=2, padx=10,)
-        tk.Button(self, text="tanh(x)",command=lambda: self.resultvar.set(ftrs.tanh_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="tanh(x)",command=lambda: self.resultvar.set(ftrs.tanh_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=6, column=2, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="asen(x)",command=lambda: self.resultvar.set(ftrs.asin_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="asen(x)",command=lambda: self.resultvar.set(ftrs.asin_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=7, column=0, sticky=W, pady=2, padx=20)
-        tk.Button(self, text="acos(x)",command=lambda: self.resultvar.set(ftrs.acos_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="acos(x)",command=lambda: self.resultvar.set(ftrs.acos_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=7, column=1, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="atan(x)",command=lambda: self.resultvar.set(ftrs.atan_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="atan(x)",command=lambda: self.resultvar.set(ftrs.atan_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=7, column=2, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="sec(x)",command=lambda: self.resultvar.set(ftrs.sec_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="sec(x)",command=lambda: self.resultvar.set(ftrs.sec_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=8, column=0, sticky=W, pady=2, padx=20)
-        tk.Button(self, text="csc(x)",command=lambda: self.resultvar.set(ftrs.csc_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="csc(x)",command=lambda: self.resultvar.set(ftrs.csc_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=8, column=1, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="cot(x)",command=lambda: self.resultvar.set(ftrs.cot_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="cot(x)",command=lambda: self.resultvar.set(ftrs.cot_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=8, column=2, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="sen(x)",command=lambda: self.resultvar.set(ftrs.sin_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="sen(x)",command=lambda: self.resultvar.set(ftrs.sin_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=9, column=0, sticky=W, pady=2, padx=20)
-        tk.Button(self, text="cos(x)",command=lambda: self.resultvar.set(ftrs.cos_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="cos(x)",command=lambda: self.resultvar.set(ftrs.cos_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=9, column=1, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="tan(x)",command=lambda: self.resultvar.set(ftrs.tan_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="tan(x)",command=lambda: self.resultvar.set(ftrs.tan_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=9, column=2, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="ln(x)",command=lambda: self.resultvar.set(ftrs.ln_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="ln(x)",command=lambda: self.resultvar.set(ftrs.ln_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=10, column=0, sticky=W, pady=2, padx=20)
-        tk.Button(self, text="log10(x)",command=lambda: self.resultvar.set(ftrs.log_t(float(self.x_entry.get()),10)), width=13, height=1).grid(
+        tk.Button(self, text="log10(x)",command=lambda: self.resultvar.set(ftrs.log_t(float(eval(self.x_entry.get())),10)), width=13, height=1).grid(
             row=10, column=1, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="loga(x)",command=lambda: self.resultvar.set(ftrs.log_t(float(self.x_entry.get()),float(self.y_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="loga(x)",command=lambda: self.resultvar.set(ftrs.log_t(float(eval(self.x_entry.get())),float(eval(self.y_entry.get())))), width=13, height=1).grid(
             row=10, column=2, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="1/x",command=lambda: self.resultvar.set(ftrs.div_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="1/x",command=lambda: self.resultvar.set(ftrs.div_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=11, column=0, sticky=W, pady=2, padx=20)
-        tk.Button(self, text="sqrt(x)",command=lambda: self.resultvar.set(ftrs.sqrt_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="sqrt(x)",command=lambda: self.resultvar.set(ftrs.sqrt_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=11, column=1, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="n_sqrt(x)",command=lambda: self.resultvar.set(ftrs.root_t(float(self.x_entry.get()),float(self.y_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="n_sqrt(x)",command=lambda: self.resultvar.set(ftrs.root_t(float(eval(self.x_entry.get())),float(eval(self.y_entry.get())))), width=13, height=1).grid(
             row=11, column=2, sticky=W, pady=2, padx=10)
-        tk.Button(self, text="exp(x)",command=lambda: self.resultvar.set(ftrs.exp_t(float(self.x_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="exp(x)",command=lambda: self.resultvar.set(ftrs.exp_t(float(eval(self.x_entry.get())))), width=13, height=1).grid(
             row=12, column=0, sticky=W, pady=2, padx=20)
-        tk.Button(self, text="x^y",command=lambda: self.resultvar.set(ftrs.power_t(float(self.x_entry.get()),float(self.y_entry.get()))), width=13, height=1).grid(
+        tk.Button(self, text="x^y",command=lambda: self.resultvar.set(ftrs.power_t(float(eval(self.x_entry.get())),float(eval(self.y_entry.get())))), width=13, height=1).grid(
             row=12, column=1, sticky=W, pady=2, padx=10)
         tk.Button(self, image=self.help, width=97, height=24, background="#1CAC91", borderwidth=0,command=self.displayHelp).grid(
             row=12, column=2, sticky=W, pady=2, padx=10)
